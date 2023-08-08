@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agregar Venta</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="static\styles\style_agregar-venta.css">
+</head>
+
+<body>
+    <form method="post" id="ventaForm">
+        <h1>Agregar Venta</h1>
+        <label for="producto">Producto:</label>
+        <select name="producto" required>
+            {% for producto in productos %}
+            <option value="{{ producto[0] }}" data-precio="{{ producto[2] }}" data-stock="{{ producto[3] }}">{{ producto[1] }} - Precio: ${{ producto[2] }}
+                - Stock: {{ producto[3] }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="unidad_medida">Unidad de Medida:</label>
+        <select name="unidad_medida" id="unidad_medida" onchange="calcularTotal();">
+            <option value="kilo">Kilogramos</option>
+            <option value="gramo">Gramos</option>
+        </select>
+        <br>
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" name="cantidad" step="any" required>
+        <br>
+        <p id="total-pagar">Total a Pagar: $0.00</p>
+        <div class="btns">
+            <input class="btn_guardar" type="button" value="Agregar Producto" onclick="validarVenta();">
+            <input class="btn_generar" type="button" value="Generar Venta" onclick="mostrarConfirmacionGenerarVenta();">
+            <input class="btn_regresar" type="button" value="Regresar" onclick="window.location.href='/principal';">
+        </div>
+    </form>
+
+    <script>
+        const productosAgregados = [];
+
+        // Obtener referencias a los elementos del formulario
+        const productoSelect = document.querySelector('select[name="producto"]');
+        const cantidadInput = document.querySelector('input[name="cantidad"]');
+        const totalPagar = document.getElementById('total-pagar');
+
+        // Función para calcular y mostrar el total a pagar
+        function calcularTotal() {
+            const precioProducto = parseFloat(productoSelect.options[productoSelect.selectedIndex].dataset.precio);
+            let cantidad = parseFloat(cantidadInput.value); // Cambiar a parseFloat para aceptar decimales
+            const unidadMedida = document.getElementById('unidad_medida').value;
+
+            // Realizar conversión a kilogramos si la unidad de medida es gramo
+            if (unidadMedida === 'gramo') {
+                cantidad = cantidad / 1000;
+            }
+
+            const total = isNaN(cantidad) ? '' : (precioProducto * cantidad).toFixed(2);
+            totalPagar.textContent = `Total a Pagar: $${total}`;
+        }
+
+        // Escuchar cambios en el select y en el input de cantidad
+        productoSelect.addEventListener('change', calcularTotal);
+        cantidadInput.addEventListener('input', calcularTotal);
+
+        function validarVenta() {
+            // Validar campos requeridos antes de agregar el producto
+            var camposRequeridos = [productoSelect, cantidadInput];
+            var camposIncompletos = [];
+
+            camposRequeridos.forEach(function (campo) {
+                if (!campo.value) {
+                    camposIncompletos.push(campo.name);
+                }
+            });
+
+            if (camposIncompletos.length > 0) {
+                var mensaje = "Los siguientes campos son obligatorios: " + camposIncompletos.join(", ");
+                mostrarMensajeError("Campos incompletos", mensaje);
+            } else {
+                // Obtener el stock disponible del producto seleccionado
+                var stockDisponible = parseInt(productoSelect.options[productoSelect.selectedIndex].dataset.stock);
+                var cantidadVenta = parseFloat(cantidadInput.value); // Cambiar a parseFloat para aceptar decimales
+                const unidadMedida = document.getElementById('unidad_medida').value;
+
+                // Realizar conversión a kilogramos si la unidad de medida es gramo
+                if (unidadMedida === 'gramo') {
+                    cantidadVenta = cantidadVenta / 1000;
+                }
+
+                if (cantidadVenta <= 0) {
+                    mostrarMensajeError("Cantidad inválida", "Por favor, selecciona una cantidad válida para realizar la venta.");
+                } else if (cantidadVenta > stockDisponible) {
+                    mostrarMensajeError("No hay suficiente stock", "La cantidad de venta excede el stock disponible. Por favor, ingresa una cantidad válida.");
+                } else {
+                    // Agregar producto a la lista de productos agregados
+                    productosAgregados.push({
+                        producto_id: productoSelect.value,
+                        cantidad: cantidadVenta,
+                        unidad_medida: unidadMedida,
+                        precio_unitario: parseFloat(productoSelect.options[productoSelect.selectedIndex].dataset.precio)
+                    });
+
+                    Swal.fire({
+                        title: "Producto agregado",
+                        text: "El producto ha sido agregado a la venta.",
+                        icon: "success",
+                        confirmButtonColor: "#3085d6",
+                        confirmButtonText: "Aceptar"
+                    });
+
+                    // Limpiar campos
+                    productoSelect.selectedIndex = 0;
+                    cantidadInput.value = "";
+                    totalPagar.textContent = "Total a Pagar: $0.00";
+                }
+            }
+        }
+
+        function mostrarConfirmacionGenerarVenta() {
+            if (productosAgregados.length === 0) {
+                mostrarMensajeError("Venta vacía", "No se han agregado productos a la venta.");
+            } else {
+                var resumenHtml = "<h3>Resumen de Venta</h3><ul>";
+
+                var totalVenta = 0;
+                for (var i = 0; i < productosAgregados.length; i++) {
+                    var producto = productosAgregados[i];
+                    var totalProducto = producto.cantidad * producto.precio_unitario;
+                    totalVenta += totalProducto;
+
+                    resumenHtml += "<li>" + producto.cantidad + " " + producto.unidad_medida + " de " + producto.producto_id +
+                                   " - Total: $" + totalProducto.toFixed(2) + "</li>";
+                }
+
+                resumenHtml += "</ul><p>Total a Pagar: $" + totalVenta.toFixed(2) + "</p>";
+
+                Swal.fire({
+                    title: "Confirmar Venta",
+                    html: resumenHtml,
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Confirmar",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        guardarVenta();
+                    }
+                });
+            }
+        }
+
+        function guardarVenta() {
+            // Enviar los datos de la venta al servidor y guardar en la base de datos
+            fetch('/guardar-venta', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(productosAgregados)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        title: "Venta generada",
+                        text: "La venta se ha generado exitosamente.",
+                        icon: "success",
+                        confirmButtonColor: "#3085d6",
+                        confirmButtonText: "Aceptar"
+                    });
+
+                    productosAgregados.length = 0; // Limpiar la lista de productos agregados
+                } else {
+                    mostrarMensajeError("Error", "Ha ocurrido un error al guardar la venta en la base de datos.");
+                }
+            })
+            .catch(error => {
+                console.error("Error al guardar la venta:", error);
+                mostrarMensajeError("Error", "Ha ocurrido un error al guardar la venta en la base de datos.");
+            });
+        }
+
+        function mostrarMensajeError(titulo, mensaje) {
+            Swal.fire({
+                title: titulo,
+                text: mensaje,
+                icon: "error",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "Aceptar"
+            });
+        }
+    </script>
+</body>
+</html>
+{% endblock %}

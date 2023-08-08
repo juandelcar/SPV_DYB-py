@@ -1,0 +1,72 @@
+form {
+    margin: 50px auto;
+    width: 270px;
+    background-color: rgba(255, 255, 255, 0.932);
+    padding: 25px 120px 10px 80px;
+    border-radius: 20px;
+}
+
+h1 {
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 25px;
+    color: rgb(0, 0, 0);
+    font-weight: lighter;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: black;
+    font-weight: bolder;
+    font-weight: lighter;
+}
+
+input, textarea, select {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 300px;
+    padding: 7px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(0, 140, 255, 0);
+    border-radius: 0;
+    resize: none;
+    overflow: auto;
+    outline: none;
+    background-color:lightgray;
+}
+
+select {
+    width: 314px;
+}
+
+input, textarea, select::selection{
+    border: transparent;
+}
+
+.btns {
+    display:inline-flex;
+    margin-top: 15px;
+}
+
+.btn_guardar {
+    background: green;
+    border-radius: 15px;
+    width: 120px;
+    height: 40px;  
+}
+
+.btn_guardar:hover {
+    cursor: pointer;
+}
+
+.btn_regresar {
+    background: red;
+    border-radius: 15px;
+    width: 120px;
+    height: 40px;
+    margin-left: 70px;
+}
+
+.btn_regresar:hover {
+    cursor: pointer;
+}

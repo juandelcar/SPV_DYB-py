@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Editar Categorías</title>
+    <link rel="stylesheet" href="static\styles\style_editar-categorias-tabla.css">
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th class="th-id">ID</th>
+            <th class="th-nombre">Nombre</th>
+            <th colspan="2" class="th-acciones">Acciones</th>
+        </tr>
+        {% for categoria in categorias %}
+        <tr>
+            <td>{{ categoria[0] }}</td>
+            <td>{{ categoria[1] }}</td>
+            <td class="icons">
+                <a href="/editar-categoria/{{ categoria[0] }}">
+                    <img class="edit" src="{{ url_for('static', filename='img/icon_edit.png') }}" width=30> </a>
+                <hr>
+                <a href="/eliminar-categoria/{{ categoria[0] }}"
+                    onclick="return confirm('¿Estás seguro de eliminar este producto?')">
+                    <img class="delete" src="{{ url_for('static', filename='img/icon_delete.png') }}" width=30> </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="pagination">
+        {% if num_paginas > 1 or num_paginas is not defined %}
+        {% if pagina_actual > 1 %}
+        <a class="pp" href="?p=1">&laquo; Primera</a>
+        <a class="pa" href="?p={{ pagina_actual - 1 }}">&larr; Anterior</a>
+        {% endif %}
+
+        {% for pagina in paginas %}
+        {% if pagina == pagina_actual %}
+        <span class="no1">{{ pagina }}</span>
+        {% else %}
+        <a class="no2" href="?p={{ pagina }}">{{ pagina }}</a>
+        {% endif %}
+        {% endfor %}
+
+        {% if pagina_actual < num_paginas %} <a class="ps" href="?p={{ pagina_actual + 1 }}">Siguiente &rarr;</a>
+            <a class="pu" href="?p={{ num_paginas }}">Última &raquo;</a>
+            {% endif %}
+            {% endif %}
+    </div>
+</body>
+
+</html>
+{% endblock %}

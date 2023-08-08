@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Buscar Productos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style_productos-tabla.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <form method="post">
+        <input placeholder="Seleccione el filtro y busque aquí..." type="text" name="valor_filtro" class="valor_filtro"
+            id="valor_filtro" required>
+        <span class="search-icon"><i class="fas fa-search"></i></span>
+
+        <div class="filter">
+            <span class="filter-icon"><i class="fas fa-filter"></i></span>
+            <select class="filters" name="filtro" id="filtro">
+                <option value="nombre">Nombre</option>
+                <option value="marca">Marca</option>
+                <option value="categoria">Categoría</option>
+                <option value="stock">Stock</option>
+                <option value="caducidad">Caducidad</option>
+            </select>
+        </div>
+    </form>
+
+    <table>
+        <tr>
+            <th class="th-nombre">Nombre</th>
+            <th class="th-marca">Marca</th>
+            <th class="th-precio">Precio</th>
+            <th class="th-stock">Stock (Kg)</th>
+            <th class="th-categoria">Categoría</th>
+            <th class="th-caducidad">Caducidad</th>
+        </tr>
+        {% for producto in productos %}
+        <tr class="producto">
+            <td>{{ producto[1] }}</td>
+            <td>{{ producto[2] }}</td>
+            <td>{{ producto[3] }}</td>
+            <td>{{ producto[4] }}</td>
+            <td>{{ producto[5] }}</td>
+            <td>{{ producto[6] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <script>
+        $(document).ready(function () {
+            $('#filtro').on('change', function () {
+                var valorFiltro = $(this).val();
+                if (valorFiltro === 'caducidad') {
+                    $('#valor_filtro').attr('type', 'date');
+                } else {
+                    $('#valor_filtro').attr('type', 'text');
+                }
+                filtrarResultados();
+            });
+
+            $('form').on('submit', function (event) {
+                event.preventDefault();
+                filtrarResultados();
+            });
+
+            $('#valor_filtro').on('input', function () {
+                filtrarResultados();
+            });
+
+            function filtrarResultados() {
+                var filtro = $('#filtro').val();
+                var valorFiltro = $('#valor_filtro').val().toLowerCase();
+
+                $('.producto').each(function () {
+                    var columnaTexto = $(this).find('td:eq(' + filtroColumnaIndex(filtro) + ')').text().toLowerCase();
+                    if (columnaTexto.includes(valorFiltro) || valorFiltro === '') {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
+
+            function filtroColumnaIndex(filtro) {
+                // Mapear el valor del filtro a la posición de la columna en la tabla
+                var columnaIndex = {
+                    'nombre': 0,
+                    'marca': 1,
+                    'categoria': 4,
+                    'stock': 3,
+                    'caducidad': 5
+                };
+                return columnaIndex[filtro];
+            }
+
+            $('#filtro').on('change', function () {
+                filtrarOrden();
+            });
+
+            function filtrarOrden() {
+                var filtro = $('#filtro').val();
+                var $productos = $('.producto');
+                if (filtro === 'caducidad') {
+                    $productos.sort(function (a, b) {
+                        var fechaA = new Date($(a).find('td:eq(5)').text()).getTime();
+                        var fechaB = new Date($(b).find('td:eq(5)').text()).getTime();
+                        return fechaA - fechaB;
+                    });
+                } else if (filtro === 'stock') {
+                    $productos.sort(function (a, b) {
+                        var stockA = parseInt($(a).find('td:eq(3)').text());
+                        var stockB = parseInt($(b).find('td:eq(3)').text());
+                        return stockA - stockB;
+                    });
+                }
+                $productos.detach().appendTo('table');
+            }
+        });
+    </script>
+</body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,100 @@
+body {
+    background: rgb(4, 47, 66);
+    font-family: 'Raleway', sans-serif;
+}
+
+form {
+    width: 400px;
+    background: #1d2b38;
+    padding: 40px;
+    margin: auto;
+    margin-top: 110px;
+    border-radius: 20px;
+    color: white;
+    box-shadow: 7px 13px 37px #0000005e;
+    text-align: center;
+}
+
+h1{
+    font-size: 45px;
+}
+
+
+
+input {
+    width: 50%;
+    background: #14293d2c;
+    padding: 10px;
+    border-radius: 4.5px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    border: 1px solid #0051ff;
+    font-family: 'calibri';
+    font-size: 18px;
+    color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+input:hover{
+    border: 1.5px double rgb(0, 153, 255);
+}
+
+.tyc {
+    display: flex;
+    text-align: start;
+}
+
+.txt {
+    font-family: 'calibri';
+    font-size: 15px;
+    color: white;
+    transition: all 0.3s ease-in-out;
+    margin-left: 80px;
+    margin-top: 10px;
+}
+
+.txt:hover {
+    color: rgb(0, 119, 255);
+    font-weight: bold;
+}
+
+.check-tyc {
+    width: 15px;
+    height: 15px;
+    margin-right: 80px;
+    margin-top: 11px;
+}
+
+.check-tyc:hover {
+    cursor: pointer;
+}
+
+button {
+    background: #0000005e;
+    color: white;
+    cursor: pointer;
+    font-family: 'calibri';
+    font-size: 18px;
+    width: 30%;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 25px;
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    background: #0051ff;
+}
+
+strong{
+    color: rgb(146, 146, 146);
+    margin-left: 40px;
+}
+
+
+.error-message {
+    color: rgb(236, 25, 25);
+    font-size: 14px;
+    margin-top: 5px;
+}

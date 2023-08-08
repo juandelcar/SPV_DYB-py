@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Editar Producto</title>
+    <link rel="stylesheet" href="/static/styles/style_producto-editar.css">
+</head>
+
+<body>
+    <form method="post">
+        <h1>Editar Producto</h1>
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" value="{{ producto[1] }}" required>
+        <br>
+        <label for="marca">Marca:</label>
+        <input type="text" name="marca" value="{{ producto[2] }}" required>
+        <br>
+        <label for="precio">Precio:</label>
+        <input type="number" step="0.01" name="precio" value="{{ producto[3] }}" required>
+        <br>
+        <label for="stock">Stock (Kg):</label>
+        <input type="number" name="stock" value="{{ producto[4] }}" required>
+        <br>
+        <label for="categoria">Categoría:</label>
+        <select name="categoria" required>
+            {% for categoria in categorias %}
+            {% if categoria[0] == producto[5] %}
+            <option value="{{ categoria[0] }}" selected>{{ categoria[1] }}</option>
+            {% else %}
+            <option value="{{ categoria[0] }}">{{ categoria[1] }}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+        <br>
+        <label for="caducidad">Caducidad:</label>
+        <input type="date" name="caducidad" value="{{ producto[6] }}" required>
+        <br>
+        <div class="btns">
+            <input class="btn_guardar" type="button" value="Guardar Cambios" onclick="mostrarVentanaModal();">
+            <input class="btn_regresar" type="submit" value="Regresar" onclick="window.history.back();">
+        </div>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+    <script>
+        function mostrarVentanaModal() {
+            const inputs = document.querySelectorAll('input[required], select[required]');
+            let todosLlenos = true;
+            inputs.forEach((input) => {
+                if (!input.value) {
+                    todosLlenos = false;
+                }
+            });
+
+            if (todosLlenos) {
+                Swal.fire({
+                    title: '¿Quieres guardar los cambios?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Guardar',
+                    cancelButtonText: 'Cancelar',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Si el usuario acepta, enviar el formulario manualmente
+                        document.querySelector('form').submit();
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: 'Por favor, llena todos los campos.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>
+{% endblock %}

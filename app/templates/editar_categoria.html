@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Editar Categoría</title>
+    <link rel="stylesheet" href="/static\styles\style_categoria-editar.css">
+</head>
+
+<body>
+    <form method="post">
+        <h1>Editar Categoría</h1>
+        <label for="nombre">Nombre de la Categoría:</label>
+        <input type="text" name="nombre" value="{{ categoria[1] }}" required>
+        <div class="btns">
+            <input class="btn_actualizar" type="button" value="Actualizar" onclick="mostrarVentanaModal();">
+            <input class="btn_regresar" type="button" value="Regresar" onclick="window.location.href='/editar-categorias';">
+        </div>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+    <script>
+        function mostrarVentanaModal() {
+            const inputs = document.querySelectorAll('input[required]');
+            let todosLlenos = true;
+            inputs.forEach((input) => {
+                if (!input.value) {
+                    todosLlenos = false;
+                }
+            });
+
+            if (todosLlenos) {
+                Swal.fire({
+                    title: '¿Quieres actualizar la categoría?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Actualizar',
+                    cancelButtonText: 'Cancelar',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Si el usuario acepta, enviar el formulario manualmente
+                        document.querySelector('form').submit();
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: 'Por favor, llena todos los campos.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>
+{% endblock %}

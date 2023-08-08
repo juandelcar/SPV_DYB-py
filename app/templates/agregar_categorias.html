@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Agregar Categorías</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="static\styles\style_categoria-nueva.css">
+</head>
+
+<body>
+    <form method="post" id="categoriaForm" autocomplete="off">
+        <h1>Agregar Categorías</h1>
+        <label for="nombre">Nombre de la Categoría:</label>
+        <input type="text" name="nombre" required autocomplete="off">
+        <br>
+        <div class="btns">
+            <input class="btn_guardar" type="button" value="Guardar" onclick="mostrarVentanaModal();">
+            <input class="btn_regresar" type="button" value="Regresar" onclick="window.location.href='/principal';">
+        </div>
+    </form>
+    <script>
+        function mostrarVentanaModal() {
+            // Validar campos requeridos antes de enviar el formulario
+            var formulario = document.getElementById("categoriaForm");
+            var camposRequeridos = formulario.querySelectorAll("[required]");
+            var camposIncompletos = [];
+            camposRequeridos.forEach(function (campo) {
+                if (!campo.value) {
+                    camposIncompletos.push(campo.name);
+                }
+            });
+
+            if (camposIncompletos.length > 0) {
+                var mensaje = "Los siguientes campos son obligatorios: " + camposIncompletos.join(", ");
+                Swal.fire({
+                    title: "Campos incompletos",
+                    text: mensaje,
+                    icon: "warning",
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: "Aceptar"
+                });
+            } else {
+                Swal.fire({
+                    title: '¿Quieres guardar la Categoria?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Si el usuario acepta, enviar el formulario manualmente
+                        formulario.submit();
+                    }
+                });
+            }
+        }
+    </script>
+    {{ script|safe }}
+</body>
+
+</html>
+{% endblock %}

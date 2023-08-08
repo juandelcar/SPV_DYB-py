@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Menú</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/menu.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Función para obtener la hora actual en formato 12 horas
+            function obtenerHoraActual() {
+                var fecha = new Date();
+                var horas = fecha.getHours();
+                var minutos = fecha.getMinutes();
+                var ampm = horas >= 12 ? 'p. m.' : 'a. m.';
+                horas = horas % 12 || 12;
+                minutos = minutos < 10 ? '0' + minutos : minutos;
+                return  horas + ':' + minutos + ' ' + ampm;
+            }
+
+            // Función para obtener la fecha actual en formato dd-mm-yyyy
+            function obtenerFechaActual() {
+                var fecha = new Date();
+                var dia = fecha.getDate();
+                var mes = fecha.getMonth() + 1; // Sumar 1 al mes porque en JavaScript los meses van de 0 a 11
+                var anio = fecha.getFullYear();
+                // Asegurar que el día y el mes tengan siempre dos dígitos
+                dia = dia < 10 ? '0' + dia : dia;
+                mes = mes < 10 ? '0' + mes : mes;
+                return dia + '/' + mes + '/' + anio;
+            }
+
+            // Actualizar la hora y fecha cada segundo
+            setInterval(function () {
+                var horaActual = obtenerHoraActual();
+                var fechaActual = obtenerFechaActual();
+                $('#hora-actual').text(horaActual);
+                $('#fecha-actual').text(fechaActual);
+            }, 1000);
+        });
+    </script>
+
+<body>
+    <header>
+        <div class="header">
+            <h1>Botanas "Judoyeli"</h1>
+            <img class="logo" src="{{ url_for('static', filename='img/Logo_v1.3.png') }}" title="Logotipo 'Judoyeli'">
+            <div class="date-time">
+                <p class="hora-actual" id="hora-actual" title="Hora"></p>
+                <p class="fecha-actual" id="fecha-actual" title="Fecha"></p>
+            </div>
+            <a href="/logout">
+                <img class="logout" src="{{ url_for('static', filename='img/icon_logout.png') }}" title="Cerrar sesión">
+            </a>
+        </div>
+        <nav>
+
+            <ul class="menu">
+                <li><a href="/principal">🏠 Inicio</a></li>
+                <li><a>📦 Productos</a>
+                    <ul class="submenu">
+                        <li class="options"><a href="/agregar-productos-form">Agregar producto 🆕</a></li>
+                        <li class="options"><a href="/editar-productos">Editar productos 📝</a></li>
+                        <li class="options"><a href="/buscar-productos">Buscar productos 🔍</a></li>
+                        <li class="options"><a href="/agregar-categorias-form">Agregar categoría 📚</a></li>
+                        <li class="options"><a href="/editar-categorias">Editar categorías 📝</a></li>
+                    </ul>
+                </li>
+                <li><a>💵 Ventas</a>
+                    <ul class="submenu">
+                        <li class="options"><a href="/agregar-venta">Nueva Venta 💲</a></li>
+                    </ul>
+                </li>
+                <li><a>📄 Reportes</a>
+                    <ul class="submenu">
+                        <li class="options"><a href="/reporte-ventas">Historial de Ventas 🧾</a></li>
+                        <li class="options"><a href="/reporte-inventario">Productos Existentes 📦</a></li>
+                        <li class="options"><a href="/reporte-productos-caducados">Productos Caducados 📆</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contenido específico de cada página se insertará aquí -->
+    {% block content %}{% endblock %}
+
+</body>
+
+</html>

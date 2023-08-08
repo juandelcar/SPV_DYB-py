@@ -1,0 +1,93 @@
+table {
+    background: rgba(255, 255, 255, 0.952);
+    margin: 50px 100px 50px 95px;
+}
+
+tr th{
+    background-color:rgb(74, 177, 5);
+    height: 25px;
+}
+
+.th-id {
+    width: 50px;
+}
+
+.th-nombre {
+    width: 300px;
+}
+
+.th-marca {
+    width: 140px;
+}
+
+.th-precio {
+    width: 90px;
+}
+
+.th-stock {
+    width: 90px;
+}
+
+.th-categoria {
+    width: 250px;
+}
+
+.th-caducidad {
+    width: 140px;
+}
+
+.th-acciones {
+    width: 130px;
+}
+
+tr td{
+    background-color: rgba(0, 97, 13, 0.274);
+    height: 30px;
+    text-align: justify;
+}
+
+a {
+    text-decoration: none;
+}
+
+.icons {
+    display: flex;
+}
+
+hr {
+    height: 3vh;
+    width: .1vw;
+    border-width: 0;
+    color: black;
+    background: black;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: -25px;
+}
+
+.pp, 
+.pa, 
+.ps, 
+.pu, 
+.no1, 
+.no2 {
+    margin-left: 10px;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 17, 255, 0);
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+.pp:hover, .pa:hover, .ps:hover, .pu:hover, .no2:hover {
+    background-color: #0011ff;
+}
+
+.no1 {
+    background-color: #001d5ada;
+    color: white;
+    border: transparent;
+}

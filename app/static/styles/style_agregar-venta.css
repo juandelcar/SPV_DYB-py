@@ -1,0 +1,84 @@
+form {
+    margin: 50px auto;
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.932);
+    padding: 25px 120px 10px 80px;
+    border-radius: 20px;
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 25px;
+    margin-bottom: 30px;
+    color: rgb(0, 0, 0);
+    font-weight: lighter;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: black;
+    font-weight: bolder;
+    font-weight: lighter;
+}
+
+input, textarea, select {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 400px;
+    padding: 7px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(0, 140, 255, 0);
+    border-radius: 0;
+    resize: none;
+    overflow: auto;
+    outline: none;
+    background-color: lightgray;
+}
+
+select {
+    width: 414px;
+}
+
+input, textarea, select::selection {
+    border: transparent;
+}
+
+.btns {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    flex-wrap: wrap; 
+    margin-top: 15px;
+}
+
+.btn_guardar{
+    background: rgb(4, 149, 239);
+    border-radius: 15px;
+    width: 120px;
+    height: 40px;
+    margin-bottom: 10px;
+}
+.btn_generar {
+    background: rgb(31, 219, 10);
+    border-radius: 15px;
+    width: 120px;
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+.btn_guardar:hover,
+.btn_generar:hover {
+    cursor: pointer;
+}
+
+.btn_regresar {
+    background: rgb(234, 63, 63);
+    border-radius: 15px;
+    width: 120px;
+    height: 40px;
+    margin-top: 10px; 
+}
+
+.btn_regresar:hover {
+    cursor: pointer;
+}

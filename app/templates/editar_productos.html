@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/style_editar-productos-tabla.css') }}">
+<table>
+    <tr>
+        
+        <th class="th-nombre">Nombre</th>
+        <th class="th-marca">Marca</th>
+        <th class="th-precio">Precio</th>
+        <th class="th-stock">Stock (Kg)</th>
+        <th class="th-categoria">Categoría</th>
+        <th class="th-caducidad">Caducidad</th>
+        <th colspan="2" class="th-acciones">Acciones</th>
+    </tr>
+    {% for producto in productos %}
+    <tr class="content">
+        
+       
+        <td>{{ producto[1] }}</td>
+        <td>{{ producto[2] }}</td>
+        <td>{{ producto[3] }}</td>
+        <td>{{ producto[4] }}</td>
+        <td>{{ producto[5] }}</td>
+        <td>{{ producto[6] }}</td>
+        <td class="icons">
+            <a href="/editar-producto/{{ producto[0] }}">
+                <img class="edit" src="{{ url_for('static', filename='img/icon_edit.png') }}" width=30> </a>
+            <hr>
+            <a href="/eliminar-producto/{{ producto[0] }}"
+                onclick="return confirm('¿Estás seguro de eliminar este producto?')">
+                <img class="delete" src="{{ url_for('static', filename='img/icon_delete.png') }}" width=30> </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<!-- ------------PAGINADOR------------ -->
+<div class="pagination">
+    {% if num_paginas > 1 %}
+    {% if pagina_actual > 1 %}
+    <a class="pp" href="?p=1">&laquo; Primera</a>
+    <a class="pa" href="?p={{ pagina_actual - 1 }}">&larr; Anterior</a>
+    {% endif %}
+
+    {% for pagina in paginas %}
+    {% if pagina == pagina_actual %}
+    <span class="no1">{{ pagina }}</span>
+    {% else %}
+    <a class="no2" href="?p={{ pagina }}">{{ pagina }}</a>
+    {% endif %}
+    {% endfor %}
+
+    {% if pagina_actual < num_paginas %} <a class="ps" href="?p={{ pagina_actual + 1 }}">Siguiente &rarr;</a>
+        <a class="pu" href="?p={{ num_paginas }}">Última &raquo;</a>
+        {% endif %}
+        {% endif %}
+</div>
+{% endblock %}
