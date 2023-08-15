@@ -1,11 +1,20 @@
+/* ----------- ESTILOS PARA EL FORMULARIO DE GENERAR VENTA ----------- */
+
+
+/* Estilos para el contenedor del formulario. Se establece un margen para centrar 
+el formulario en la página, se define el ancho, el color de fondo con una transparencia, 
+relleno, y bordes redondeados. */
 form {
     margin: 50px auto;
     width: 270px;
-    background-color: rgb(177, 177, 177);
+    background-color: rgba(255, 255, 255, 0.87);
+    backdrop-filter:blur(8px);
     padding: 25px 120px 10px 80px;
     border-radius: 20px;
 }
 
+/* Estilos para el encabezado de nivel 1 en el formulario. 
+Se configura el margen superior y inferior, tamaño de fuente, color de texto y peso de fuente. */
 h1 {
     margin-top: 0;
     font-size: 25px;
@@ -14,6 +23,8 @@ h1 {
     font-weight: lighter;
 }
 
+/* Estilos para las etiquetas de los campos del formulario. 
+Se define el margen inferior, color de texto y peso de fuente. */
 label {
     display: block;
     margin-bottom: 5px;
@@ -22,51 +33,123 @@ label {
     font-weight: lighter;
 }
 
+/* Estilos para los campos de entrada (input), áreas de texto (textarea) y selectores (select) del formulario. 
+Se establece la fuente, el ancho, el relleno, el margen inferior, el borde, los bordes redondeados, 
+la ausencia de redimensionamiento y desbordamiento, y el color de fondo. */
 input, textarea, select {
     font-family: Arial, Helvetica, sans-serif;
     width: 300px;
     padding: 7px;
     margin-bottom: 15px;
     border: 1px solid rgba(0, 140, 255, 0);
-    border-radius: 0;
+    border-radius: 10px;
     resize: none;
     overflow: auto;
     outline: none;
     background-color:lightgray;
 }
 
+/* Estilos específicos para los selectores del formulario, incrementando su ancho ligeramente. */
 select {
     width: 314px;
 }
 
+/* Estilos para la selección de texto dentro de los campos de entrada, áreas de texto y selectores, 
+configurando un borde transparente. */
 input, textarea, select::selection{
     border: transparent;
 }
 
+/* Estilos para el contenedor que alberga los botones. Se utiliza el modelo de 
+visualización inline-flex para alinear horizontalmente los botones, y se establece un margen superior. */
 .btns {
     display:inline-flex;
     margin-top: 15px;
 }
 
+/* Estilos para los botones de "Actualizar" y "Regresar". 
+Se definen el fondo, los bordes redondeados, el ancho y la altura. */
 .btn_actualizar {
-    background: green;
-    border-radius: 15px;
+    height: 45px;
     width: 120px;
-    height: 40px;  
+    background: transparent;
+    -webkit-animation: jello-horizontal 0.9s both;
+    animation: jello-horizontal 0.9s both;
+    border: 2px solid #04bf00;
+    outline: none;
+    color: #04bf00;
+    font-size: 15px;  
+    font-weight: bold;  
 }
 
-.btn_actualizar:hover{
-    cursor: pointer;
+.btn_actualizar:hover {
+    background: #04bf00;
+    color: #ffffff;
+    animation: btnprueba 0.9s both;
+    font-weight: lighter;
 }
 
 .btn_regresar {
-    background: red;
-    border-radius: 15px;
+    height: 45px;
     width: 120px;
-    height: 40px;
+    background: transparent;
+    -webkit-animation: jello-horizontal 0.9s both;
+    animation: jello-horizontal 0.9s both;
+    border: 2px solid #bf0000;
+    outline: none;
+    color: #bf0000;
+    font-size: 15px;
     margin-left: 74px;
+    font-weight: bold;
 }
 
+.btn_regresar:hover {
+    background: #bf0000;
+    color: #ffffff;
+    animation: btnprueba 0.9s both;
+    font-weight: lighter;
+}
+   
+@keyframes btnprueba {
+    0% {
+     -webkit-transform: scale3d(1, 1, 1);
+     transform: scale3d(1, 1, 1);
+    }
+   
+    30% {
+     -webkit-transform: scale3d(1.25, 0.75, 1);
+     transform: scale3d(1.25, 0.75, 1);
+    }
+   
+    40% {
+     -webkit-transform: scale3d(0.75, 1.25, 1);
+     transform: scale3d(0.75, 1.25, 1);
+    }
+   
+    50% {
+     -webkit-transform: scale3d(1.15, 0.85, 1);
+     transform: scale3d(1.15, 0.85, 1);
+    }
+   
+    65% {
+     -webkit-transform: scale3d(0.95, 1.05, 1);
+     transform: scale3d(0.95, 1.05, 1);
+    }
+   
+    75% {
+     -webkit-transform: scale3d(1.05, 0.95, 1);
+     transform: scale3d(1.05, 0.95, 1);
+    }
+   
+    100% {
+     -webkit-transform: scale3d(1, 1, 1);
+     transform: scale3d(1, 1, 1);
+    }
+}
+
+/* Cambios de estilo cuando se coloca el cursor sobre los botones. 
+Se cambia el cursor a "pointer" para indicar interacción. */
+.btn_actualizar:hover,
 .btn_regresar:hover {
     cursor: pointer;
 }

@@ -1,0 +1,6 @@
+flask
+mysql.connector
+datetime
+reportlab
+bcrypt
+pandas

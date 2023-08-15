@@ -2,10 +2,12 @@
 
 {% block content %}
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
     <title>Buscar Productos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/style_productos-tabla.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -15,7 +17,6 @@
         <input placeholder="Seleccione el filtro y busque aquí..." type="text" name="valor_filtro" class="valor_filtro"
             id="valor_filtro" required>
         <span class="search-icon"><i class="fas fa-search"></i></span>
-
         <div class="filter">
             <span class="filter-icon"><i class="fas fa-filter"></i></span>
             <select class="filters" name="filtro" id="filtro">
@@ -26,6 +27,7 @@
                 <option value="caducidad">Caducidad</option>
             </select>
         </div>
+        <input class="btn_regresar" type="button" value="Regresar" onclick="window.location.href='/principal';">
     </form>
 
     <table>

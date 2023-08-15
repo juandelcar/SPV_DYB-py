@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Cargar Archivo CSV</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static\styles\cargar_archivo.css">
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data">
+        <h1>Cargar archivo .csv</h1>
+        <input class="subir" type="file" name="archivo_excel" accept=".csv">
+        <div class="btns">
+            <input class="btn_guardar"  type="submit" value="Cargar">
+            <input class="btn_regresar" type="button" value="Regresar" onclick="window.location.href='/principal';">
+        </div>
+        
+    </form>
+</body>
+</html>
+{% endblock %}

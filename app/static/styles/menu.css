@@ -1,3 +1,9 @@
+/* ----------- ESTILOS PARA EL MENÚ ----------- */
+
+
+/*  Estilos generales para el cuerpo del documento .
+    Se establece un fondo de imagen, se define el tipo de fuente y 
+    se inicia una animación para mover la imagen de fondo de izquierda a derecha. */
 body {
     margin: 0;
     padding: 0;
@@ -9,10 +15,16 @@ body {
     animation: fondo_mov 8s infinite linear alternate;
 }
 
+/*  Se ocultan las barras de desplazamiento en navegadores WebKit (como Google Chrome) 
+    estableciendo un ancho de 0px. */
 body::-webkit-scrollbar {
     width: 0px;
 }
 
+/*  Animación para mover la imagen de fondo.
+    Define una animación llamada "fondo_mov". 
+    Cambia gradualmente la posición del fondo de imagen desde el 0% hasta el 100% 
+    para crear un efecto de movimiento. */
 @keyframes fondo_mov {
     0% {
         background-position: 0 0;
@@ -23,14 +35,9 @@ body::-webkit-scrollbar {
     }
 }
 
-/* header {
-    background-color: #aaaaaa;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 130px;
-} */
-
+/*  Estilos para la cabecera del sitio.
+    Como posición fija en la parte superior, colores de fondo y texto, altura, 
+    alineación de contenido y márgenes. */
 .header {
     position: fixed;
     top: 0;
@@ -43,9 +50,11 @@ body::-webkit-scrollbar {
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    z-index: 5;
+    z-index: 1;
 }
 
+/*  Estilos específicos para el encabezado de nivel 1 dentro de la cabecera, 
+    como margen superior, tamaño de fuente y peso de fuente. */
 .header h1 {
     margin-top: 30px;
     margin-left: 10px;
@@ -53,44 +62,61 @@ body::-webkit-scrollbar {
     font-weight: lighter;
 }
 
+/*  Estilos para el logotipo, incluyendo margen, ancho y alto. */
 .logo {
     margin: 0px 0px 0px -600px;
     width: 100px;
     height: 50px;
 }
 
+/*  Estilos para el contenedor que alberga la fecha y la hora actual.*/
 .date-time {
     display: flexbox;
     margin: 0px -650px 0px 0px;
 }
 
+/*  Estilos para mostrar la hora y fecha actuales, incluyendo margen, relleno, 
+    radio de borde y ancho. */
 #hora-actual {
-    margin: 5px 0px 0px 0px;
+    margin: 5px 100px 0px 0px;
     padding: 5px;
     border-radius: 10px;
     width: auto;
 }
 
 #fecha-actual {
-    margin: 0px 0px 0px 0px;
+    margin: 0px 100px 0px 0px;
     padding: 5px;
     border-radius: 10px;
     width: auto;
 }
 
+/*  Cambios de estilo cuando se coloca el cursor sobre los elementos, 
+    como el cambio de color de fondo para indicar interacción. */
 .name-user:hover,
 #hora-actual:hover,
 #fecha-actual:hover {
     background-color: #d6d6d667;
 }
 
-.logout {
-    display: flex;
-    width: 40px;
-    height: 40px;
-    margin: 0px 20px 0px 70px;
+.BTNS {
+    display: inline-flex;
 }
 
+.help {
+    width: 40px;
+    height: 40px;
+    margin: 0px 30px 0px 0px;
+}
+
+/*  Estilos para el botón de cierre de sesión, incluyendo dimensiones y margen. */
+.logout {
+    width: 40px;
+    height: 40px;
+    margin: 0px 0px 0px 0px;
+}
+
+/*  Estilos para el menú de navegación, como la lista sin viñetas, alineación, márgenes y relleno.*/
 .menu {
     list-style: none;
     display: flex;
@@ -100,16 +126,21 @@ body::-webkit-scrollbar {
     background-color: #ffffff;
 }
 
+
 nav ul {
     list-style: none;
     margin: 5px;
     padding: 0;
+    z-index: 1;
 }
 
+/*  Estilos para los elementos de lista en el menú principal.*/
 nav ul li {
     display: inline-block;
 }
 
+/*  Estilos para los enlaces dentro de los elementos de lista,
+    como relleno, color de texto y transiciones de animación.*/
 nav ul li a {
     display: block;
     padding: 15px 25px;
@@ -121,6 +152,8 @@ nav ul li a {
     margin: 0px 0px 0px 10px;
 }
 
+/*  Cambios de estilo cuando se coloca el cursor sobre los enlaces del menú principal, 
+    como el cambio de color de fondo y el aumento del relleno.*/
 nav ul li:hover>a {
     background-color: #cfcfcf9f;
     padding: 15px 65px;
@@ -130,12 +163,15 @@ nav ul li:hover>a {
     transition: all 0.5s ease-in-out;
 }
 
+/*  Mostrar el submenú cuando se coloca el cursor sobre un elemento 
+    de lista del menú principal.*/
 nav ul li:hover .submenu {
     display: block;
     background-color: #f7f7f7;
     transition: all 0.5s ease-in-out;
 }
 
+/*  Estilos para el submenú desplegable, como posición, color de fondo y bordes redondeados.*/
 nav ul .submenu {
     margin-top: 2px;
     display: none;
@@ -146,11 +182,13 @@ nav ul .submenu {
     border-radius: 5px;
 }
 
+/* Estilos para los elementos de lista en el submenú */
 nav ul .options {
     width: auto;
     height: auto;
 }
 
+/*  Estilos para los enlaces dentro del submenú, incluyendo relleno, color de texto y márgenes.*/
 nav ul .submenu li {
     display: block;
 }
@@ -163,6 +201,8 @@ nav ul .submenu li a {
     border-radius: 5px;
 }
 
+/*  Cambios de estilo al colocar el cursor sobre los enlaces del submenú, 
+    como el cambio de color de fondo y el color de texto. */
 nav ul .submenu li a:hover {
     background-color: #ddd;
     color: green;

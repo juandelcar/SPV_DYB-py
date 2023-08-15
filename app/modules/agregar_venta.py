@@ -2,7 +2,7 @@ from flask import render_template, request, flash, redirect, jsonify
 import json
 
 def get_productos(cursor):
-    cursor.execute("SELECT id, nombre, precio, stock FROM productos WHERE activo = TRUE")
+    cursor.execute("SELECT id, nombre, precio, stock, categoria FROM productos WHERE activo = TRUE")
     return cursor.fetchall()
 
 def register_routes(app, db, cursor):
@@ -13,23 +13,25 @@ def register_routes(app, db, cursor):
             cantidad = float(request.form['cantidad'])
             unidad_medida = request.form['unidad_medida']
 
-            cursor.execute("SELECT nombre, precio, stock FROM productos WHERE id = %s", (producto_id,))
+            cursor.execute("SELECT nombre, precio, stock, categoria FROM productos WHERE id = %s", (producto_id,))
             producto = cursor.fetchone()
-            precio_unitario = producto[0]
-            stock_actual = producto[1]
+            precio_unitario = producto[1]
+            stock_actual = producto[2]
 
             if unidad_medida == 'gramo':
                 cantidad = cantidad / 1000
+            elif unidad_medida == 'unidad':
+                # No es necesario realizar conversiones para unidades
+                pass
 
-            precio_unitario = float(precio_unitario)
             precio_total = precio_unitario * cantidad
 
             if cantidad > stock_actual:
                 flash("No hay suficiente stock disponible para el producto seleccionado.", 'error')
                 return redirect('/agregar-venta')
 
-            if cantidad == 0:
-                flash("Seleccione un valor válido.", 'error')
+            if cantidad <= 0:
+                flash("Seleccione una cantidad válida.", 'error')
                 return redirect('/agregar-venta')
 
             nuevo_stock = stock_actual - cantidad
@@ -45,10 +47,11 @@ def register_routes(app, db, cursor):
             db.commit()
 
             flash("Producto agregado a la venta.", 'success')
-            return redirect('/agregar-venta')
-
+        unidad_medida = request.form.get('unidad_medida', 'kilo')  # Valor predeterminado 'kilo'
         productos = get_productos(cursor)
-        return render_template('agregar_venta.html', productos=productos)
+        return render_template('agregar_venta.html', productos=productos, unidad_medida=unidad_medida)
+        
+    
 
     @app.route('/guardar-venta', methods=['POST'])
     def guardar_venta():

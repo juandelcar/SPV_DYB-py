@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
     <title>Menú</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/menu.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -50,9 +52,16 @@
                 <p class="hora-actual" id="hora-actual" title="Hora"></p>
                 <p class="fecha-actual" id="fecha-actual" title="Fecha"></p>
             </div>
-            <a href="/logout">
-                <img class="logout" src="{{ url_for('static', filename='img/icon_logout.png') }}" title="Cerrar sesión">
-            </a>
+            <div class="BTNS">
+                
+                <a href="{{ url_for('static', filename='Manual de Usuario v2.pdf') }}" target="_blank">
+                    <img class="help" src="{{ url_for('static', filename='img/icon_help.png') }}" title="Cómo usar">
+                </a>
+                    
+                <a href="/logout">
+                    <img class="logout" src="{{ url_for('static', filename='img/icon_logout.png') }}" title="Cerrar sesión">
+                </a>
+            </div>
         </div>
         <nav>
 
@@ -69,14 +78,18 @@
                 </li>
                 <li><a>💵 Ventas</a>
                     <ul class="submenu">
-                        <li class="options"><a href="/agregar-venta">Nueva Venta 💲</a></li>
+                        <li class="options"><a href="/agregar-venta">Nueva venta 💲</a></li>
                     </ul>
                 </li>
+
                 <li><a>📄 Reportes</a>
                     <ul class="submenu">
-                        <li class="options"><a href="/reporte-ventas">Historial de Ventas 🧾</a></li>
-                        <li class="options"><a href="/reporte-inventario">Productos Existentes 📦</a></li>
-                        <li class="options"><a href="/reporte-productos-caducados">Productos Caducados 📆</a></li>
+                        <li class="options"><a href="/cargar_archivo_productos">Importar inventario 📥</a></li>
+                        <li class="options"><a href="/cargar_archivo_categorias">Importar categorías 📥</a></li>
+                        <li class="options"><a href="/reporte-ventas">Historial de ventas 🧾</a></li>
+                        <li class="options"><a href="/reporte-inventario">Productos existentes 📦</a></li>
+                        <li class="options"><a href="/reporte-categorias">Categorías existentes 📦</a></li>
+                        <li class="options"><a href="/reporte-productos-caducados">Productos caducados 📆</a></li>
                     </ul>
                 </li>
             </ul>

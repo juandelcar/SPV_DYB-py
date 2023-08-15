@@ -2,12 +2,14 @@
 
 {% block content %}
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
     <title>Agregar Productos</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="static\styles\style_producto-nuevo.css">
 </head>
 
@@ -23,7 +25,7 @@
         <label for="precio">Precio:</label>
         <input type="number" name="precio" step="0.01" required>
         <br>
-        <label for="stock">Stock (Kg):</label>
+        <label for="stock">Stock (Kg/U):</label>
         <input type="number" name="stock" required>
         <br>
         <label for="categoria">Categoría:</label>
@@ -78,6 +80,7 @@
             }
         }
     </script>
+    {{ script|safe }}
 </body>
 
 </html>

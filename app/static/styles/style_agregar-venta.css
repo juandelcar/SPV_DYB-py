@@ -1,11 +1,19 @@
+/* ----------- ESTILOS PARA EL FORMULARIO DE GENERAR VENTA ----------- */
+
+
+/* Estilos generales para el formulario, incluyendo márgenes, ancho, 
+color de fondo, relleno y bordes redondeados. */
 form {
     margin: 50px auto;
-    width: 400px;
-    background-color: rgba(255, 255, 255, 0.932);
+    width: 370px;
+    background-color: rgba(255, 255, 255, 0.87);
+    backdrop-filter:blur(8px);
     padding: 25px 120px 10px 80px;
     border-radius: 20px;
 }
 
+/* Estilos para el encabezado del formulario, como margen superior, 
+tamaño de fuente, margen inferior, color de texto y peso de fuente. */
 h1 {
     margin-top: 0;
     font-size: 25px;
@@ -14,6 +22,8 @@ h1 {
     font-weight: lighter;
 }
 
+/* Estilos para las etiquetas de los campos del formulario, 
+como visualización en bloque, margen inferior, color de texto y peso de fuente. */
 label {
     display: block;
     margin-bottom: 5px;
@@ -22,63 +32,145 @@ label {
     font-weight: lighter;
 }
 
+/* Estilos para los elementos de entrada del formulario, como fuente,
+ancho, relleno, margen inferior, borde, redondeado de borde, 
+no redimensionable, sin desbordamiento, sin contorno y color de fondo. */
 input, textarea, select {
     font-family: Arial, Helvetica, sans-serif;
     width: 400px;
     padding: 7px;
     margin-bottom: 15px;
     border: 1px solid rgba(0, 140, 255, 0);
-    border-radius: 0;
+    border-radius: 10px;
     resize: none;
     overflow: auto;
     outline: none;
     background-color: lightgray;
 }
 
+/* Estilos específicos para el elemento select (menú desplegable), ajustando su ancho. */
 select {
     width: 414px;
 }
 
+/* Estilos para el aspecto de selección de texto en los elementos de entrada. */
 input, textarea, select::selection {
     border: transparent;
 }
 
+/* Estilos para el contenedor de botones, como disposición flexible, 
+justificación, alineación y margen superior. */
 .btns {
     display: flex;
     justify-content: space-between; 
     align-items: center; 
     flex-wrap: wrap; 
     margin-top: 15px;
+    width: 414px;
 }
 
+/* Estilos para los botones "Guardar" y "Generar", incluyendo color de fondo, 
+borde redondeado, dimensiones y margen inferior. */
 .btn_guardar{
-    background: rgb(4, 149, 239);
-    border-radius: 15px;
-    width: 120px;
-    height: 40px;
-    margin-bottom: 10px;
-}
-.btn_generar {
-    background: rgb(31, 219, 10);
-    border-radius: 15px;
-    width: 120px;
-    height: 40px;
-    margin-bottom: 10px;
+    height: 45px;
+    width: 145px;
+    background: transparent;
+    -webkit-animation: jello-horizontal 0.9s both;
+    animation: jello-horizontal 0.9s both;
+    border: 2px solid #04bf00;
+    outline: none;
+    color: #04bf00;
+    font-size: 15px;  
+    font-weight: bold;
 }
 
-.btn_guardar:hover,
+.btn_guardar:hover {
+    background: #04bf00;
+    color: #ffffff;
+    animation: btnprueba 0.9s both;
+    font-weight: lighter;
+}
+
+.btn_generar {
+    height: 45px;
+    width: 127px;
+    background: transparent;
+    -webkit-animation: jello-horizontal 0.9s both;
+    animation: jello-horizontal 0.9s both;
+    border: 2px solid #006ebf;
+    outline: none;
+    color: #006ebf;
+    font-size: 15px;  
+    font-weight: bold;
+}
+
 .btn_generar:hover {
-    cursor: pointer;
+    background: #006ebf;
+    color: #ffffff;
+    animation: btnprueba 0.9s both;
+    font-weight: lighter;
 }
 
 .btn_regresar {
-    background: rgb(234, 63, 63);
-    border-radius: 15px;
-    width: 120px;
-    height: 40px;
-    margin-top: 10px; 
+    height: 45px;
+    width: 127px;
+    background: transparent;
+    -webkit-animation: jello-horizontal 0.9s both;
+    animation: jello-horizontal 0.9s both;
+    border: 2px solid #bf0000;
+    outline: none;
+    color: #bf0000;
+    font-size: 15px;
+    font-weight: bold;
 }
 
+.btn_regresar:hover {
+    background: #bf0000;
+    color: #ffffff;
+    animation: btnprueba 0.9s both;
+    font-weight: lighter;
+}
+   
+@keyframes btnprueba {
+    0% {
+     -webkit-transform: scale3d(1, 1, 1);
+     transform: scale3d(1, 1, 1);
+    }
+   
+    30% {
+     -webkit-transform: scale3d(1.25, 0.75, 1);
+     transform: scale3d(1.25, 0.75, 1);
+    }
+   
+    40% {
+     -webkit-transform: scale3d(0.75, 1.25, 1);
+     transform: scale3d(0.75, 1.25, 1);
+    }
+   
+    50% {
+     -webkit-transform: scale3d(1.15, 0.85, 1);
+     transform: scale3d(1.15, 0.85, 1);
+    }
+   
+    65% {
+     -webkit-transform: scale3d(0.95, 1.05, 1);
+     transform: scale3d(0.95, 1.05, 1);
+    }
+   
+    75% {
+     -webkit-transform: scale3d(1.05, 0.95, 1);
+     transform: scale3d(1.05, 0.95, 1);
+    }
+   
+    100% {
+     -webkit-transform: scale3d(1, 1, 1);
+     transform: scale3d(1, 1, 1);
+    }
+}
+
+/* Cambios de estilo al pasar el cursor sobre el botón "Regresar", como cambio de cursor. */
+.btn_guardar:hover,
+.btn_generar:hover,
 .btn_regresar:hover {
     cursor: pointer;
 }

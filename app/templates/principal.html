@@ -2,19 +2,42 @@
 
 {% block content %}
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
     <title>Página principal</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static\styles\style_index.css">
+    <link rel="stylesheet" href="static\styles\carga.css">
 </head>
 
 <body>
+    <!-- PAC-MAN -->
+    <div class="loader-wrapper">
+        <div class="packman"></div>
+        <div class="dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+    </div>
+    <script>
+        window.addEventListener('load',() => {
+            const contenedor = document.querySelector('.loader-wrapper')
+            contenedor.style.visibility = 'hidden';
+            contenedor.style.opacity = 0
+        })
+    </script>
+
     <div class="container">
         {% if 'Agregar Productos' in acciones %}
         <div class="CARDS1" style="background-image: url('static/img/card1.jpg'); background-size: cover;">
-            <h4>Agregue Productos Nuevos...</h4>
-            <a href="/agregar-productos-form" class="cardbtn">Aquí</a>
+            <h4>Agregue productos nuevos...</h4>
+            <a href="/agregar-productos-form">
+                <input class="cardbtn"  type="submit" value="Aquí">
+            </a>
         </div>
         {% endif %}
     </div>
@@ -22,8 +45,10 @@
     <div class="container">
         {% if 'Agregar Categorías' in acciones %}
         <div class="CARDS1" style="background-image: url('static/img/card2.jpg'); background-size: cover;">
-            <h4>Agregue Categorías Nuevas...</h4>
-            <a href="/agregar-categorias-form" class="cardbtn">Aquí</a>
+            <h4>Agregue categorías nuevas...</h4>
+            <a href="/agregar-categorias-form">
+                <input class="cardbtn"  type="submit" value="Aquí">
+            </a>
         </div>
         {% endif %}
     </div>
@@ -31,8 +56,10 @@
     <div class="container">
         {% if 'Agregar Venta' in acciones %}
         <div class="CARDS1" style="background-image: url('static/img/card3.jpg'); background-size: cover;">
-            <h4>Agregue Venta...</h4>
-            <a href="/agregar-venta" class="cardbtn">Aquí</a>
+            <h4>Agregue ventas nuevas...</h4>
+            <a href="/agregar-venta">
+                <input class="cardbtn"  type="submit" value="Aquí">
+            </a>
         </div>
         {% endif %}
     </div>
@@ -40,8 +67,10 @@
     <div class="container">
         {% if 'Editar Productos' in acciones %}
         <div class="CARDS1" style="background-image: url('static/img/card4.jpg'); background-size: cover;">
-            <h4>Editar Productos...</h4>
-            <a href="/editar-productos" class="cardbtn">Aquí</a>
+            <h4>Editar productos...</h4>
+            <a href="/editar-productos">
+                <input class="cardbtn"  type="submit" value="Aquí">
+            </a>
         </div>
         {% endif %}
     </div>
@@ -49,8 +78,10 @@
     <div class="container">
         {% if 'Editar Categorías' in acciones %}
         <div class="CARDS1" style="background-image: url('static/img/card5.jpg'); background-size: cover;">
-            <h4>Editar Categorías...</h4>
-            <a href="/editar-categorias" class="cardbtn">Aquí</a>
+            <h4>Editar categorías...</h4>
+            <a href="/editar-categorias">
+                <input class="cardbtn"  type="submit" value="Aquí">
+            </a>
         </div>
         {% endif %}
     </div>
@@ -59,34 +90,75 @@
         {% if 'Buscar Productos' in acciones %}
         <div class="CARDS1" style="background-image: url('static/img/card6.jpg'); background-size: cover;">
             <h4>Buscar productos...</h4>
-            <a href="/buscar-productos" class="cardbtn">Aquí</a>
+            <a href="/buscar-productos">
+                <input class="cardbtn"  type="submit" value="Aquí">
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="container">
+        {% if 'Subir Productos(Excel)' in acciones %}
+        <div class="CARDS1" style="background-image: url('static/img/card7.jpg'); background-size: cover;">
+            <h4>Importar inventario</h4>
+            <a href="/cargar_archivo_productos">
+                <input class="cardbtn" type="submit" value="Aquí">
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="container">
+        {% if 'Subir Productos(Excel)' in acciones %}
+        <div class="CARDS1" style="background-image: url('static/img/card10.jpg'); background-size: cover;">
+            <h4>Importar categorías</h4>
+            <a href="/cargar_archivo_categorias">
+                <input class="cardbtn" type="submit" value="Aquí">
+            </a>
         </div>
         {% endif %}
     </div>
 
     <div class="container">
         {% if 'Productos Existentes..(PDF)' in acciones %}
-        <div class="CARDS1" style="background-image: url('static/img/card7.jpg'); background-size: cover;">
-            <h4>Productos Existentes..(PDF)</h4>
-            <a href="/reporte-inventario" target="_blank" class="cardbtn">Aquí</a>
+        <div class="CARDS1" style="background-image: url('static/img/card8.jpg'); background-size: cover;">
+            <h4>Productos existentes... (PDF)</h4>
+            <a href="/reporte-inventario" target="_blank">
+                <input class="cardbtn"  type="submit" value="Aquí">
+            </a>
         </div>
         {% endif %}
     </div>
 
     <div class="container">
-        {% if 'Historial de Ventas..(PDF)' in acciones %}
-        <div class="CARDS1" style="background-image: url('static/img/card8.jpg'); background-size: cover;">
-            <h4>Historial de Ventas..(PDF)</h4>
-            <a href="/reporte-ventas" target="_blank" class="cardbtn">Aquí</a>
+        {% if 'Categorias Existentes..(PDF)' in acciones %}
+        <div class="CARDS1" style="background-image: url('static/img/card12.jpg'); background-size: cover;">
+            <h4>Categorías existentes... (PDF)</h4>
+            <a href="/reporte-categorias" target="_blank">
+                <input class="cardbtn"  type="submit" value="Aquí">
+            </a>
         </div>
         {% endif %}
     </div>
 
     <div class="container">
         {% if 'Productos Caducados..(PDF)' in acciones %}
-        <div class="CARDS1" style="background-image: url('static/img/card5.jpg'); background-size: cover;">
-            <h4>Productos Caducados..(PDF)</h4>
-            <a href="/reporte-productos-caducados" target="_blank" class="cardbtn">Aquí</a>
+        <div class="CARDS1" style="background-image: url('static/img/card11.jpg'); background-size: cover;">
+            <h4>Productos caducados... (PDF)</h4>
+            <a href="/reporte-productos-caducados" target="_blank">
+                <input class="cardbtn"  type="submit" value="Aquí">
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="container">
+        {% if 'Historial de Ventas..(PDF)' in acciones %}
+        <div class="CARDS1" style="background-image: url('static/img/card9.jpg'); background-size: cover;">
+            <h4>Historial de ventas... (PDF)</h4>
+            <a href="/reporte-ventas" target="_blank">
+                <input class="cardbtn"  type="submit" value="Aquí">
+            </a>
         </div>
         {% endif %}
     </div>

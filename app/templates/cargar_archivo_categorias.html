@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Cargar Archivo CSV</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static\styles\cargar_archivo.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data" onsubmit="return validateForm();">
+        <h1>Cargar archivo .csv de categorías</h1>
+        <input class="subir" type="file" name="archivo_excel" accept=".csv">
+        <div class="btns">
+            <input class="btn_guardar"  type="submit" value="Cargar">
+            <input class="btn_regresar" type="button" value="Regresar" onclick="window.location.href='/principal';">
+        </div>
+    </form>
+
+    <script>
+        // Función para validar el formulario antes de enviarlo
+        function validateForm() {
+            var archivoInput = document.querySelector('.subir');
+            if (archivoInput.files.length === 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Por favor, selecciona un archivo antes de cargar.',
+                });
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
+{% endblock %}

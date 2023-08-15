@@ -2,9 +2,11 @@
 
 {% block content %}
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <title>Agregar Venta</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="static\styles\style_agregar-venta.css">
@@ -15,20 +17,24 @@
         <h1>Agregar Venta</h1>
         <label for="producto">Producto:</label>
         <select name="producto" required>
+            <option value="" data-precio="0.00" data-stock="0" data-categoria="0">Selecciona un producto</option>
             {% for producto in productos %}
-            <option value="{{ producto[0] }}" data-precio="{{ producto[2] }}" data-stock="{{ producto[3] }}">{{ producto[1] }} - Precio: ${{ producto[2] }}
-                - Stock: {{ producto[3] }}</option>
+                <option value="{{ producto[0] }}" data-precio="{{ producto[2] }}" data-stock="{{ producto[3] }}" data-categoria="{{ producto[4] }}">{{ producto[1] }} - Precio: ${{ producto[2] }}
+                    - Stock: {{ producto[3] }}</option>
             {% endfor %}
         </select>
+        
+
         <br>
         <label for="unidad_medida">Unidad de Medida:</label>
-        <select name="unidad_medida" id="unidad_medida" onchange="calcularTotal();">
+        <select name="unidad_medida" id="unidad_medida" onchange="actualizarListaProductos(); calcularTotal();">
             <option value="kilo">Kilogramos</option>
             <option value="gramo">Gramos</option>
+            <option value="unidad">Unidad</option>
         </select>
         <br>
         <label for="cantidad">Cantidad:</label>
-        <input type="number" name="cantidad" step="any" required>
+        <input type="number" name="cantidad" step="1" required>
         <br>
         <p id="total-pagar">Total a Pagar: $0.00</p>
         <div class="btns">
@@ -122,37 +128,54 @@
         function mostrarConfirmacionGenerarVenta() {
             if (productosAgregados.length === 0) {
                 mostrarMensajeError("Venta vacía", "No se han agregado productos a la venta.");
-            } else {
-                var resumenHtml = "<h3>Resumen de Venta</h3><ul>";
-
-                var totalVenta = 0;
-                for (var i = 0; i < productosAgregados.length; i++) {
-                    var producto = productosAgregados[i];
-                    var totalProducto = producto.cantidad * producto.precio_unitario;
-                    totalVenta += totalProducto;
-
-                    resumenHtml += "<li>" + producto.cantidad + " " + producto.unidad_medida + " de " + producto.producto_id +
-                                   " - Total: $" + totalProducto.toFixed(2) + "</li>";
+                return;
+            }
+        
+            var resumenHtml = "<h3>Resumen de Venta</h3><ul>";
+        
+            var totalVenta = 0;
+            productosAgregados.forEach(function(producto, index) {
+                var totalProducto = producto.cantidad * producto.precio_unitario;
+                totalVenta += totalProducto;
+        
+                var nombreProducto = productoSelect.querySelector('option[value="' + producto.producto_id + '"]').textContent;
+                resumenHtml += `<li>${producto.cantidad} ${producto.unidad_medida} de ${nombreProducto} 
+                                - Precio Unitario: $${producto.precio_unitario.toFixed(2)} 
+                                - Total: $${totalProducto.toFixed(2)}
+                                <a href="#" onclick="eliminarProducto(${index});"><i class="fas fa-times-circle"></i></a></li>`;
+            });
+        
+            
+            resumenHtml += "</ul><p>Total a Pagar: $" + totalVenta.toFixed(2) + "</p>";
+        
+            Swal.fire({
+                title: "Confirmar Venta",
+                html: resumenHtml,
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Confirmar",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    guardarVenta();
                 }
+            });
+        }
 
-                resumenHtml += "</ul><p>Total a Pagar: $" + totalVenta.toFixed(2) + "</p>";
-
-                Swal.fire({
-                    title: "Confirmar Venta",
-                    html: resumenHtml,
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Confirmar",
-                    cancelButtonText: "Cancelar"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        guardarVenta();
-                    }
-                });
+        function eliminarProducto(index) {
+            productosAgregados.splice(index, 1);
+        
+            // Ocultar la ventana de confirmación
+            Swal.close();
+        
+            // Actualizar el resumen de la venta si todavía hay productos en la lista
+            if (productosAgregados.length > 0) {
+                mostrarConfirmacionGenerarVenta();
             }
         }
+        
 
         function guardarVenta() {
             // Enviar los datos de la venta al servidor y guardar en la base de datos
@@ -175,7 +198,12 @@
                     });
 
                     productosAgregados.length = 0; // Limpiar la lista de productos agregados
+                    // Recargar la página después de 2 segundos (ajusta el tiempo según tu preferencia)
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
                 } else {
+                
                     mostrarMensajeError("Error", "Ha ocurrido un error al guardar la venta en la base de datos.");
                 }
             })
@@ -194,6 +222,41 @@
                 confirmButtonText: "Aceptar"
             });
         }
+
+        function actualizarListaProductos() {
+            const unidadMedida = document.getElementById('unidad_medida').value;
+            const productos = productoSelect.options;
+    
+            for (let i = 0; i < productos.length; i++) {
+                const producto = productos[i];
+                const categoria = parseInt(producto.getAttribute('data-categoria'));
+    
+                if (unidadMedida === 'unidad') {
+                    // Mostrar solo los productos con la categoría 4
+                    producto.style.display = categoria === 4 ? '' : 'none';
+                } else {
+                    // Mostrar todos los productos excepto los de la categoría 4
+                    producto.style.display = categoria !== 4 ? '' : 'none';
+                }
+            }
+        }
+    
+        // Escuchar cambios en el select de unidad de medida
+        const unidadMedidaSelect = document.getElementById('unidad_medida');
+        unidadMedidaSelect.addEventListener('change', () => {
+            calcularTotal();
+            actualizarListaProductos(); // Llamar a la función aquí
+        });
+    
+        // Escuchar cambios en el select de producto y en el input de cantidad
+        productoSelect.addEventListener('change', () => {
+            calcularTotal();
+        });
+    
+        cantidadInput.addEventListener('input', () => {
+            calcularTotal();
+        });
+
     </script>
 </body>
 </html>

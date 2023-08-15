@@ -1,0 +1,137 @@
+/* ----------- ESTILOS PARA EL FORMULARIO DE AGREGAR UN DOCUMENTO .CSV ----------- */
+
+
+/* Estilos para el contenedor del formulario. Se establece un margen para centrar el formulario en la página, 
+el ancho, un color de fondo con transparencia, relleno en la parte superior, derecha e inferior, 
+bordes redondeados para suavizar la apariencia y un sombreado para un efecto de elevación. */
+form {
+    margin: 50px auto;
+    width: 270px;
+    background-color: rgba(255, 255, 255, 0.932);
+    padding: 25px 120px 10px 80px;
+    border-radius: 20px;
+}
+
+/* Estilos para el encabezado de nivel 1 en el formulario. 
+Se elimina el margen superior, se establece un margen inferior, tamaño de fuente y color de texto. */
+h1 {
+    margin-top: 0;
+    margin-bottom: 30px;
+    width: max-content;
+    font-size: 25px;
+    color: rgb(0, 0, 0);
+    font-weight: lighter;
+}
+
+/* Estilos para los campos de entrada (input), áreas de texto (textarea) y selectores (select) del formulario. 
+Se define la fuente, el ancho, el relleno, el margen inferior, un borde con una transparencia en tonos de azul, bordes redondeados, 
+y se desactiva el redimensionamiento y el desbordamiento. El fondo es de color "lightgray". */
+input {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 320px;
+    height: 25px;
+    padding: 7px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(0, 140, 255, 0);
+    border-radius: 10px;
+    resize: none;
+    overflow: auto;
+    outline: none;
+    background-color:rgb(202, 202, 202);
+}
+
+/* Estilos para la selección de texto dentro de los campos de entrada, áreas de texto y selectores. 
+Se establece un borde transparente para que la selección de texto no tenga un borde visible. */
+input::selection {
+    border: transparent;
+}
+
+/* Estilos para el contenedor que alberga los botones. 
+Se utiliza el modelo de visualización inline-flex para alinear horizontalmente los botones, 
+y se establece un margen superior para separación visual. */
+.btns {
+    display:inline-flex;
+    margin-top: 20px;
+}
+
+/* Estilos para el botón "Regresar". Se definen el fondo, los bordes redondeados, 
+el ancho y la altura de los botones. */
+.btn_import {
+    height: 45px;
+    width: 140px;
+    background: transparent;
+    -webkit-animation: jello-horizontal 0.9s both;
+    animation: jello-horizontal 0.9s both;
+    border: 2px solid #0026ff;
+    outline: none;
+    color: #0026ff;
+    font-size: 15px;
+}
+
+.btn_import:hover {
+    background: #0026ff;
+    color: #ffffff;
+    animation: btnprueba 0.9s both;
+    cursor: pointer;
+}
+
+.btn_regresar {
+    height: 45px;
+    width: 135px;
+    background: transparent;
+    -webkit-animation: jello-horizontal 0.9s both;
+    animation: jello-horizontal 0.9s both;
+    border: 2px solid #bf0000;
+    outline: none;
+    color: #bf0000;
+    font-size: 15px;
+    margin-left: 40px;
+}
+   
+.btn_regresar:hover {
+    background: #bf0000;
+    color: #ffffff;
+    animation: btnprueba 0.9s both;
+    cursor: pointer;
+}
+   
+@keyframes btnprueba {
+    0% {
+     -webkit-transform: scale3d(1, 1, 1);
+     transform: scale3d(1, 1, 1);
+    }
+   
+    30% {
+     -webkit-transform: scale3d(1.25, 0.75, 1);
+     transform: scale3d(1.25, 0.75, 1);
+    }
+   
+    40% {
+     -webkit-transform: scale3d(0.75, 1.25, 1);
+     transform: scale3d(0.75, 1.25, 1);
+    }
+   
+    50% {
+     -webkit-transform: scale3d(1.15, 0.85, 1);
+     transform: scale3d(1.15, 0.85, 1);
+    }
+   
+    65% {
+     -webkit-transform: scale3d(0.95, 1.05, 1);
+     transform: scale3d(0.95, 1.05, 1);
+    }
+   
+    75% {
+     -webkit-transform: scale3d(1.05, 0.95, 1);
+     transform: scale3d(1.05, 0.95, 1);
+    }
+   
+    100% {
+     -webkit-transform: scale3d(1, 1, 1);
+     transform: scale3d(1, 1, 1);
+    }
+}
+/* Cambios de estilo cuando se coloca el cursor sobre los botones. Se cambia el cursor a "pointer" para indicar interacción. */
+.btn_regresar:hover {
+    cursor: pointer;
+}

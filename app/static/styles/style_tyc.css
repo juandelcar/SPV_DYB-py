@@ -1,21 +1,27 @@
-body{
+body {
     font-family: 'Raleway', sans-serif;
     margin: 50px 120px 50px 120px;
 }
 
-h1{
-    font-size: 20px;
+h1 {
+    font-size: 25px;
     text-align: center;
     margin-bottom: 30px;
 }
 
-h2{
-    font-size: 18px;
-    text-align: center;
-    margin-top: 30px;
+h2 {
+    font-size: 20px;
+    text-align: left;
+    margin-top: 40px;
 }
 
-p{
+p {
     font-size: 16px;
     text-align: justify;
+}
+
+.p-final {
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
 }

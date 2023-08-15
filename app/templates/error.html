@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Error</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static\styles\resultado-error.css">
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data">
+        <h1>Error: {{ mensaje }}</h1>
+        <div class="btns">
+            <a href="/cargar_archivo_productos">
+                <input class="btn_import" type="button" value="Intentar de nuevo" onclick="window.location.href='/principal';">                
+            </a>
+            <input class="btn_regresar" type="button" value="Cancelar" onclick="window.location.href='/principal';">
+        </div>
+    </form>
+</body>
+</html>
+{% endblock %}

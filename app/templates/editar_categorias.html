@@ -2,30 +2,31 @@
 
 {% block content %}
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
     <title>Editar Categorías</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static\styles\style_editar-categorias-tabla.css">
 </head>
 
 <body>
     <table>
         <tr>
-            <th class="th-id">ID</th>
+            
             <th class="th-nombre">Nombre</th>
             <th colspan="2" class="th-acciones">Acciones</th>
         </tr>
         {% for categoria in categorias %}
-        <tr>
-            <td>{{ categoria[0] }}</td>
+        <tr class="content">
             <td>{{ categoria[1] }}</td>
             <td class="icons">
                 <a href="/editar-categoria/{{ categoria[0] }}">
                     <img class="edit" src="{{ url_for('static', filename='img/icon_edit.png') }}" width=30> </a>
                 <hr>
                 <a href="/eliminar-categoria/{{ categoria[0] }}"
-                    onclick="return confirm('¿Estás seguro de eliminar este producto?')">
+                    onclick="return confirm('¿Estás seguro de eliminar este categoría?')">
                     <img class="delete" src="{{ url_for('static', filename='img/icon_delete.png') }}" width=30> </a>
             </td>
         </tr>
@@ -51,6 +52,7 @@
             <a class="pu" href="?p={{ num_paginas }}">Última &raquo;</a>
             {% endif %}
             {% endif %}
+            <input class="btn_regresar" type="button" value="Regresar" onclick="window.location.href='/principal';">
     </div>
 </body>
 

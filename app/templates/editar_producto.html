@@ -2,10 +2,12 @@
 
 {% block content %}
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
     <title>Editar Producto</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/styles/style_producto-editar.css">
 </head>
 
@@ -21,7 +23,7 @@
         <label for="precio">Precio:</label>
         <input type="number" step="0.01" name="precio" value="{{ producto[3] }}" required>
         <br>
-        <label for="stock">Stock (Kg):</label>
+        <label for="stock">Stock (Kg/U):</label>
         <input type="number" name="stock" value="{{ producto[4] }}" required>
         <br>
         <label for="categoria">Categoría:</label>
