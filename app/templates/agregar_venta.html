@@ -87,43 +87,58 @@
                 mostrarMensajeError("Campos incompletos", mensaje);
             } else {
                 // Obtener el stock disponible del producto seleccionado
-                var stockDisponible = parseInt(productoSelect.options[productoSelect.selectedIndex].dataset.stock);
-                var cantidadVenta = parseFloat(cantidadInput.value); // Cambiar a parseFloat para aceptar decimales
-                const unidadMedida = document.getElementById('unidad_medida').value;
+            var stockDisponible = parseInt(productoSelect.options[productoSelect.selectedIndex].dataset.stock);
+            var cantidadVenta = parseFloat(cantidadInput.value); // Cambiar a parseFloat para aceptar decimales
+            const unidadMedida = document.getElementById('unidad_medida').value;
 
-                // Realizar conversión a kilogramos si la unidad de medida es gramo
-                if (unidadMedida === 'gramo') {
-                    cantidadVenta = cantidadVenta / 1000;
-                }
-
-                if (cantidadVenta <= 0) {
-                    mostrarMensajeError("Cantidad inválida", "Por favor, selecciona una cantidad válida para realizar la venta.");
-                } else if (cantidadVenta > stockDisponible) {
-                    mostrarMensajeError("No hay suficiente stock", "La cantidad de venta excede el stock disponible. Por favor, ingresa una cantidad válida.");
-                } else {
-                    // Agregar producto a la lista de productos agregados
-                    productosAgregados.push({
-                        producto_id: productoSelect.value,
-                        cantidad: cantidadVenta,
-                        unidad_medida: unidadMedida,
-                        precio_unitario: parseFloat(productoSelect.options[productoSelect.selectedIndex].dataset.precio)
-                    });
-
-                    Swal.fire({
-                        title: "Producto agregado",
-                        text: "El producto ha sido agregado a la venta.",
-                        icon: "success",
-                        confirmButtonColor: "#3085d6",
-                        confirmButtonText: "Aceptar"
-                    });
-
-                    // Limpiar campos
-                    productoSelect.selectedIndex = 0;
-                    cantidadInput.value = "";
-                    totalPagar.textContent = "Total a Pagar: $0.00";
-                }
+            // Realizar conversión a kilogramos si la unidad de medida es gramo
+            if (unidadMedida === 'gramo') {
+                cantidadVenta = cantidadVenta / 1000;
             }
+
+            // Verificar si el producto ya está en la lista de productos agregados
+            var productoExistenteIndex = productosAgregados.findIndex(function(producto) {
+                return producto.producto_id === productoSelect.value;
+            });
+
+            if (productoExistenteIndex !== -1) {
+                // Sumar la nueva cantidad a la cantidad existente del producto
+                var cantidadExistente = productosAgregados[productoExistenteIndex].cantidad;
+                var nuevaCantidadTotal = cantidadExistente + cantidadVenta;
+
+                if (nuevaCantidadTotal > stockDisponible) {
+                    mostrarMensajeError("No hay suficiente stock", "La cantidad de venta excede el stock disponible. Por favor, ingresa una cantidad válida.");
+                    return; // No agregar el producto a la venta
+                }
+
+                // Actualizar la cantidad del producto existente
+                productosAgregados[productoExistenteIndex].cantidad = nuevaCantidadTotal;
+            } else {
+                // Agregar producto a la lista de productos agregados
+                productosAgregados.push({
+                    producto_id: productoSelect.value,
+                    cantidad: cantidadVenta,
+                    unidad_medida: unidadMedida,
+                    precio_unitario: parseFloat(productoSelect.options[productoSelect.selectedIndex].dataset.precio)
+                });
+            }
+
+            Swal.fire({
+                title: "Producto agregado",
+                text: "El producto ha sido agregado a la venta.",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "Aceptar"
+            });
+
+            // Limpiar campos
+            productoSelect.selectedIndex = 0;
+            cantidadInput.value = "";
+            totalPagar.textContent = "Total a Pagar: $0.00";
         }
+
+                    }
+                
 
         function mostrarConfirmacionGenerarVenta() {
             if (productosAgregados.length === 0) {
